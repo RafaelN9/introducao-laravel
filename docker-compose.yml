@@ -11,18 +11,11 @@ services:
             - ./:/var/www
         depends_on:
             - "database"
-    # Web Server
-    web:
-        build:
-            context: .
-            dockerfile: web.Dockerfile
-        working_dir: /var/www
-        volumes:
-            - ./:/var/www
-        depends_on:
-            - "app"
         ports:
-            - 80:80
+            - "8080:8080"
+        networks:
+            - laravel
+        command: php artisan serve --host=0.0.0.0 --port=8080
     # Database
     database:
         image: mysql:8.0
@@ -34,7 +27,9 @@ services:
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_USER: ${DB_USERNAME}
         ports:
-            - 33061:3306
+            - 3306:3306
+        networks:
+            - laravel
     # Database management
     pma:
         image: phpmyadmin:5.1
@@ -48,6 +43,11 @@ services:
             - database
         ports:
             - 8888:80
+
+networks:
+    laravel:
+        driver: bridge
+        external: true
 
 volumes:
     dbdata:
