@@ -45,7 +45,9 @@ Lembre-se de personalizar a ementa de acordo com as necessidades específicas do
 
 ## Usando docker
 ```sh
-    docker run --rm -v "$(pwd)":/app composer install # Somente na primeira vez
+    # Somente na primeira vez
+    docker run --rm -v ${pwd}:/app composer install
+    # docker run --rm -v "$(pwd)":/app composer install # Linux / MacOS
     docker-compose up
     docker-compose exec app php artisan optimize # Opcional
 ```
