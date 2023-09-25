@@ -19,4 +19,5 @@ return [
     'created_success' => 'Tarefa criada com sucesso!',
     'edited_success' => 'Tarefa editada com sucesso!',
     'deleted_success' => 'Tarefa excluída com sucesso!',
+    'description' => 'Descrição',
 ];

@@ -19,4 +19,5 @@ return [
     'created_success' => 'Task created successfully!',
     'edited_success' => 'Task edited successfully!',
     'deleted_success' => 'Task deleted successfully!',
+    'description' => 'Description',
 ];

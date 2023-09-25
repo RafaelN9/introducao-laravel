@@ -2,19 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Todo;
+use Carbon\Carbon;
+use App\Models\Tarefa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TodoController extends Controller {
+class TarefaController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $todos = Todo::all();
-        return view('todo', compact('todos'));
+        $tarefas = Tarefa::all();
+        $tarefas = array_map(function ($tarefa) {
+            $tarefa['created_at'] = Carbon::parse($tarefa['created_at']);
+            $tarefa['updated_at'] = Carbon::parse($tarefa['updated_at']);
+            return $tarefa;
+        }, $tarefas->toArray());
+        return view('tarefa', compact('tarefas'));
     }
 
     /**
@@ -23,7 +29,7 @@ class TodoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('add-todo');
+        return view('add-tarefa');
     }
 
     /**
@@ -38,14 +44,15 @@ class TodoController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('todos.index')->withErrors($validator);
+            return redirect()->route('tarefa.index')->withErrors($validator);
         }
 
-        Todo::create([
-            'titulo' => $request->get('titulo')
+        Tarefa::create([
+            'titulo' => $request->get('titulo'),
+            'descricao' => $request->get('descricao')
         ]);
 
-        return redirect()->route('todos.index')->with('success', __('task.created_success'));
+        return redirect()->route('tarefa.index')->with('success', __('task.created_success'));
     }
 
     /**
@@ -65,8 +72,8 @@ class TodoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $todo = Todo::where('id', $id)->first();
-        return view('edit-todo', compact('todo'));
+        $tarefa = Tarefa::where('id', $id)->first();
+        return view('edit-tarefa', compact('tarefa'));
     }
 
     /**
@@ -82,17 +89,18 @@ class TodoController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('todos.edit', ['todo' => $id])->withErrors($validator);
+            return redirect()->route('tarefa.edit', ['tarefa' => $id])->withErrors($validator);
         }
 
 
 
-        $todo = Todo::where('id', $id)->first();
-        $todo->titulo = $request->get('titulo');
-        $todo->concluido = $request->get('concluido');
-        $todo->save();
+        $tarefa = Tarefa::where('id', $id)->first();
+        $tarefa->titulo = $request->get('titulo');
+        $tarefa->descricao = $request->get('descricao');
+        $tarefa->concluido = $request->get('concluido');
+        $tarefa->save();
 
-        return redirect()->route('todos.index')->with('success',  __('task.edited_success'));
+        return redirect()->route('tarefa.index')->with('success',  __('task.edited_success'));
     }
 
     /**
@@ -102,7 +110,7 @@ class TodoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        Todo::where('id', $id)->delete();
-        return redirect()->route('todos.index')->with('success', __('task.deleted_success'));
+        Tarefa::where('id', $id)->delete();
+        return redirect()->route('tarefa.index')->with('success', __('task.deleted_success'));
     }
 }

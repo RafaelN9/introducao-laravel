@@ -12,10 +12,10 @@ services:
         depends_on:
             - "database"
         ports:
-            - "8080:8080"
+            - "80:8080"
         networks:
             - laravel
-        command: php artisan serve --host=0.0.0.0 --port=8080
+        command: php artisan migrate; php artisan serve --host=0.0.0.0 --port=8080
     # Database
     database:
         image: mysql:8.0
@@ -43,6 +43,8 @@ services:
             - database
         ports:
             - 8888:80
+        networks:
+            - laravel
 
 networks:
     laravel:
