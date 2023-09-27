@@ -23,7 +23,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">@lang('task.description')</label>
-                    <textarea class="form-control" name="descricao" placeholder="@lang('task.description')" cols=2 rows=2>{{ $tarefa->descricao }}</textarea>
+                    <textarea class="form-control" name="descricao" placeholder="@lang('task.description')" cols=2 rows=5>{{ $tarefa->descricao }}</textarea>
                 </div>
 
                 <div class="mb-3">

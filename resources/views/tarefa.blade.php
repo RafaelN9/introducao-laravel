@@ -29,7 +29,7 @@
                             <th>{{ $tarefa['id'] }}</th>
                             <td>{{ $tarefa['titulo'] }}</td>
                             <td>{{ $tarefa['descricao'] }}</td>
-                            <td>{{ $tarefa['updated_at']->toDayDateTimeString() }}</td>
+                            <td>{{ $tarefa['created_at']->format('d/m/Y H:i:s') }}</td>
                             <td>
                                 @if ($tarefa['concluido'])
                                     <div class="badge

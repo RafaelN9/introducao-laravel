@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <!-- Required meta tags -->
@@ -10,10 +10,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-        <title>@lang("task.task") - @yield('title')</title>
+    <title>@lang('task.task') - @yield('title')</title>
 </head>
 
 <body>
+
+    <header class="row justify-content-end m-3">
+        <form class="col-12 col-sm-6 col-md-6 col-lg-4" action="{{ route('set-locale') }}" method="post">
+            @csrf
+            <select class="form-select" name="locale" onchange="this.form.submit()">
+                <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+                <option value="pt" {{ app()->getLocale() == 'pt' ? 'selected' : '' }}>Português</option>
+            </select>
+        </form>
+    </header>
     <div class="row justify-content-center mt-5">
         <div class="col-lg-6">
             @if (session()->has('success'))
@@ -32,7 +42,7 @@
         </div>
     </div>
 
-    <div class="container" style="max-width: 762px">
+    <div class="container">
         @yield('content')
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

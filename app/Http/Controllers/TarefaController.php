@@ -62,7 +62,8 @@ class TarefaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        //
+        $tarefa = Tarefa::where('id', $id)->first();
+        return view('tarefa', compact('tarefa'));
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\TarefaController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,5 @@ Route::get('/{tarefa}', [TarefaController::class, 'show'])->name('tarefa.show');
 Route::put('/{tarefa}', [TarefaController::class, 'update'])->name('tarefa.update');
 Route::delete('/{tarefa}', [TarefaController::class, 'destroy'])->name('tarefa.destroy');
 Route::get('/{tarefa}/edit', [TarefaController::class, 'edit'])->name('tarefa.edit');
+
+Route::post('/set-locale', [IdiomaController::class, 'setLocale'])->name('set-locale');
