@@ -1,6 +1,5 @@
-version: '3.8'
+version: "3.8"
 services:
-
     # Application
     app:
         build:
@@ -15,7 +14,7 @@ services:
             - "80:8080"
         networks:
             - laravel
-        command: php artisan migrate; php artisan serve --host=0.0.0.0 --port=8080
+        command: php artisan serve --host=0.0.0.0 --port=8080
     # Database
     database:
         image: mysql:8.0
