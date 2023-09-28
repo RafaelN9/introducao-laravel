@@ -56,6 +56,7 @@ Lembre-se de personalizar a ementa de acordo com as necessidades específicas do
     # Somente na primeira vez
     docker run --rm -v ${pwd}:/app composer install
     # docker run --rm -v "$(pwd)":/app composer install # Linux / MacOS
+    docker-compose network create laravel
     docker-compose up
     docker-compose exec app php artisan optimize # Opcional
 ```
